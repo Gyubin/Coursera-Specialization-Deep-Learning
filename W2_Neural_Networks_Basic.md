@@ -15,5 +15,17 @@
     + 일반적으로 최적화는 최소값을 구하는 것이라서 위 식에 마이너스를 붙여서 최소화해야할 cost로 만든다. `-(ylog(y_hat) + (1-y)log(1-y_hat))`
     + 데이터가 m개가 있을 때는 위 식의 `y`와 `y_hat`이  각각의 데이터가 되고 전체항을 `m`으로 나눠줘야함
 - Gradient Descent
-    - `w = w - alpha * dw`
-    - `b = b - alpha * db`
+    + `w = w - alpha * dw`
+    + `b = b - alpha * db`
+- Forward Propagation
+    + Computation graph 따라서 element-wise 곱셈이나 덧셈,
+    + Matrix multiplication 등을 자연스럽게 계산하면 된다.
+
+![backprop](https://i.imgur.com/mUJf1LT.png)
+
+- Backward Propagation: derivative
+    + 위 이미지처럼 derivative의 chain rule을 차례차례 적용하면 된다. 즉 앞에서 넘어오는 미분값과 현재 나의 미분값을 곱해야함
+    + 각 hidden unit의 derivative는 맨 마지막 loss에 끼치는 영향을 뜻한다.
+    + 1:1로 넘어올 때는 그대로 미분 계산하면 되고
+    + 두 개로 나뉠 때 덧셈 연산이라면 단순히 같은 값을 각각 똑같이 분배해주면 된다.
+    + 두 개로 나뉠 때 곱셈 연산이라면 그 두 개의 기존 값을 서로 바꿔서 넘어오는 local gradient r값에 곱해주면 된다. 위 이미지의 b, c 케이스를 보면 된다.
